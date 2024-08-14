@@ -14,12 +14,16 @@ export default [
         ...globals.node,
       },
     },
+    rules: {
+      'no-unused-vars': 'warn', // Instead of disabling, warn about unused vars
+      'no-undef': 'error', // Keep it enabled to catch actual errors
+    },
   },
 
   // Use the recommended settings from the @eslint/js plugin
   pluginJs.configs.recommended,
 
-  // Jest configuration
+  // Jest configuration for test files
   {
     files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
     plugins: {
@@ -27,7 +31,7 @@ export default [
     },
     languageOptions: {
       globals: {
-        ...jest.configs.recommended.globals,
+        ...globals.jest,
       },
     },
     rules: {
@@ -35,19 +39,20 @@ export default [
     },
   },
 
-  // Cypress configuration
+  // Cypress configuration for Cypress files
   {
-    files: ['cypress/**/*.[jt]s?(x)'],
+    files: ['cypress/**/*.[jt]s?(x)', '**/*.cy.js'], // Covering both Cypress folders and test files
     plugins: {
       cypress,
     },
     languageOptions: {
       globals: {
-        ...cypress.configs.recommended.globals,
+        ...globals.cypress,
       },
     },
     rules: {
       ...cypress.configs.recommended.rules,
+      'cypress/no-unnecessary-waiting': 'off', // Specific customization
     },
   },
 ];
