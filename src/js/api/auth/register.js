@@ -14,3 +14,8 @@ export async function register(name, email, password, avatar) {
 
   throw new Error(response.statusText);
 }
+
+export function emailValidation(email) {
+  const emailRegex = /^[^\s@]+@stud\.noroff\.no$/;
+  return emailRegex.test(email);
+}
