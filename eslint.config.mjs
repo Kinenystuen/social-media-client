@@ -15,8 +15,8 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'warn', // Instead of disabling, warn about unused vars
-      'no-undef': 'error', // Keep it enabled to catch actual errors
+      'no-unused-vars': 'warn', // Warn about unused vars
+      'no-undef': 'error', // Error on undefined variables
     },
   },
 
@@ -41,7 +41,7 @@ export default [
 
   // Cypress configuration for Cypress files
   {
-    files: ['cypress/**/*.[jt]s?(x)', '**/*.cy.js'], // Covering both Cypress folders and test files
+    files: ['cypress/**/*.[jt]s?(x)', '**/*.cy.js'], // For Cypress test files
     plugins: {
       cypress,
     },
@@ -52,7 +52,7 @@ export default [
     },
     rules: {
       ...cypress.configs.recommended.rules,
-      'cypress/no-unnecessary-waiting': 'off', // Specific customization
+      'cypress/no-unnecessary-waiting': 'off', // Disable unnecessary waiting rule
     },
   },
 ];
