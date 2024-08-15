@@ -63,6 +63,7 @@ Cypress.Commands.add('isLoggedOut', () => {
 });
 
 Cypress.Commands.add('create', (title, tags, media, body) => {
+  cy.get('#postForm', { timeout: 15000 }).should('be.visible');
   cy.get('#postForm').find('input[name=title]').type(title, { force: true });
   cy.get('#postForm').find('input[name=tags]').type(tags, { force: true });
   cy.get('#postForm').find('input[name=media]').type(media, { force: true });

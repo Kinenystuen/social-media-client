@@ -1,4 +1,4 @@
-describe('CRUD tests with mocked requests', () => {
+describe('CRUD tests with mocked request', () => {
   beforeEach(function () {
     // Load fixtures
     cy.fixture('postData.json').as('postData');
@@ -32,8 +32,6 @@ describe('CRUD tests with mocked requests', () => {
     cy.wait('@createPost', { timeout: 10000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(201);
     });
-
-    cy.wait(2000); // Wait to simulate any necessary loading
     cy.log('Post succesfully mocket');
   });
 });
