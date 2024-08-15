@@ -12,6 +12,7 @@ export default defineConfig({
     // Increase the timeout to help run post.cy.js test
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
+    responseTimeout: 15000,
   },
   env: {
     email: process.env.email,
