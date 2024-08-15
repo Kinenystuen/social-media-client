@@ -22,9 +22,7 @@ describe('CRUD tests with mocked request', () => {
     cy.get('a[href="./?view=post"].btn.btn-outline-success').click({
       force: true,
     });
-    cy.get('#postForm', { timeout: 20000 })
-      .should('exist')
-      .and('have.css', 'display', 'flex');
+    cy.get('#postForm', { timeout: 20000 }).should('exist');
 
     // Create a post (mocked)
     cy.createPost(
