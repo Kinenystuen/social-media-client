@@ -3,7 +3,15 @@
 describe('Login Tests', () => {
   beforeEach(function () {
     cy.visit('/');
-    cy.fixture('cypress.env.json').as('cypress');
+    cy.fixture('cypress.env.json')
+      .as('cypress')
+      .catch(() => {
+        // Fallback or mock data if fixture is not found
+        this.cypress = {
+          email: 'User@stud.noroff.no',
+          tags: 'password123',
+        };
+      });
   });
 
   it('should open a login form when the login button is pressed', () => {
