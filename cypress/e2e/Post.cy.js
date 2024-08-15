@@ -6,6 +6,7 @@ describe('CRUD tests with mocked request', () => {
 
     // Mock the create post request
     cy.intercept('POST', '**/social/posts', (req) => {
+      console.log('Intercepted create post request:', req);
       req.reply({
         statusCode: 201,
         body: { ...this.postData, id: '12345' },
@@ -17,14 +18,15 @@ describe('CRUD tests with mocked request', () => {
     // Log in and navigate to the post creation page
     cy.openLoginForm();
     cy.loginUser(Cypress.env('email'), Cypress.env('password'));
+    cy.isLoggedIn();
 
-    // Click on the "New Post" button
-    cy.get('a[href="./?view=post"].btn.btn-outline-success')
-      .should('be.visible') // Ensure the button is visible
-      .click({ force: true }); // Force click in case of overlapping elements
+    // Click the "New Post" button
+    cy.get('a[href="./?view=post"].btn.btn-outline-success').click({
+      force: true,
+    });
 
-    // Wait for the form to become visible
-    cy.get('#postForm', { timeout: 20000 }).should('exist').and('be.visible');
+    // Wait for the form to be visible
+    cy.get('#postForm', { timeout: 20000 }).should('be.visible');
 
     // Create a post (mocked)
     cy.createPost(
@@ -38,5 +40,6 @@ describe('CRUD tests with mocked request', () => {
     cy.wait('@createPost', { timeout: 10000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(201);
     });
+    cy.log('Post successfully mocked');
   });
 });
