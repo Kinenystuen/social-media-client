@@ -6,6 +6,7 @@ import cypress from 'eslint-plugin-cypress';
 export default [
   // Base configuration
   {
+    ignores: ['cypress/**/*'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -15,8 +16,8 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'warn', // Warn about unused vars
-      'no-undef': 'error', // Error on undefined variables
+      'no-unused-vars': 'warn',
+      'no-undef': 'error',
     },
   },
 
@@ -41,7 +42,7 @@ export default [
 
   // Cypress configuration for Cypress files
   {
-    files: ['cypress/**/*.[jt]s?(x)', '**/*.cy.js'], // For Cypress test files
+    files: ['cypress/**/*.[jt]s?(x)', '**/*.cy.js'],
     plugins: {
       cypress,
     },
@@ -52,7 +53,7 @@ export default [
     },
     rules: {
       ...cypress.configs.recommended.rules,
-      'cypress/no-unnecessary-waiting': 'off', // Disable unnecessary waiting rule
+      'cypress/no-unnecessary-waiting': 'off',
     },
   },
 ];
