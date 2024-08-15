@@ -22,3 +22,5 @@ jobs:
         env:
           email: ${{ secrets.email }}
           password: ${{ secrets.password }}
+          invalidEmail: ${{ secrets.invalidEmail }}
+          invalidPassword: ${{ secrets.invalidPassword }}
