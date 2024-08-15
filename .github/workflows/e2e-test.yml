@@ -27,3 +27,4 @@ jobs:
           password: ${{ secrets.password }}
           invalidEmail: ${{ secrets.invalidEmail }}
           invalidPassword: ${{ secrets.invalidPassword }}
+
