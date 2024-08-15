@@ -18,8 +18,10 @@ describe('CRUD tests with mocked request', () => {
     // Log in and navigate to the post creation page
     cy.openLoginForm();
     cy.loginUser(Cypress.env('email'), Cypress.env('password'));
-    cy.get('a[href="./?view=post"]').click();
+    // cy.get('a[href="./?view=post"]').click();
+    cy.get('a[href="./?view=post"].btn.btn-outline-success').click();
 
+    cy.get('#postForm', { timeout: 15000 }).should('exist').and('be.visible');
     // Create a post (mocked)
     cy.createPost(
       this.postData.title,
