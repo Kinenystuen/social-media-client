@@ -1,26 +1,7 @@
 describe('CRUD tests with mocked requests', () => {
   beforeEach(function () {
     // Load fixtures
-    cy.fixture('cypress.env.json')
-      .as('cypress')
-      .catch(() => {
-        // Fallback or mock data if fixture is not found
-        this.cypress = {
-          email: 'User@stud.noroff.no',
-          tags: 'password123',
-        };
-      });
-    cy.fixture('postData.json')
-      .as('postData')
-      .catch(() => {
-        // Fallback or mock data if fixture is not found
-        this.postData = {
-          title: 'Fallback Title',
-          tags: 'fallback',
-          media: 'https://fallback.url/image.jpg',
-          body: 'Fallback body',
-        };
-      });
+    cy.fixture('postData.json').as('postData');
     cy.visit('/');
 
     // Mock the create post request
@@ -36,7 +17,7 @@ describe('CRUD tests with mocked requests', () => {
   it('Should be able to create post (mocked)', function () {
     // Log in and navigate to the post creation page
     cy.openLoginForm();
-    cy.loginUser(this.cypress.email, this.cypress.password);
+    cy.loginUser(Cypress.env('email'), Cypress.env('password'));
     cy.get('a[href="./?view=post"]').click();
 
     // Create a post (mocked)

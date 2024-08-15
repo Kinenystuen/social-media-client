@@ -3,15 +3,6 @@
 describe('Login Tests', () => {
   beforeEach(function () {
     cy.visit('/');
-    cy.fixture('cypress.env.json')
-      .as('cypress')
-      .catch(() => {
-        // Fallback or mock data if fixture is not found
-        this.cypress = {
-          email: 'User@stud.noroff.no',
-          tags: 'password123',
-        };
-      });
   });
 
   it('should open a login form when the login button is pressed', () => {
@@ -21,12 +12,12 @@ describe('Login Tests', () => {
     cy.openLoginForm();
 
     // Use the loaded fixture data to log in
-    cy.loginUser(this.cypress.email, this.cypress.password);
+    cy.loginUser(Cypress.env('email'), Cypress.env('password'));
     cy.isLoggedIn();
   });
   it('should show an error when invalid userdata tries to log in', function () {
     cy.openLoginForm();
-    cy.loginUser(this.cypress.invalidEmail, this.cypress.invalidPassword);
+    cy.loginUser(Cypress.env('invalidEmail'), Cypress.env('invalidPassword'));
     cy.on('window:alert', () => {
       expect(true).to.be.true;
     });
