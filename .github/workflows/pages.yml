@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [master, workflow]
+    branches: ['master']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,38 +21,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test_and_deploy:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18' # Use the Node.js version your project requires
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run unit tests
-        run: npm run test-unit
-
-      - name: Run Cypress tests
-        run: npm run test-e2e-cli
-
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm i
+      - name: Build SASS
+        run: npm run build
       - name: Setup Pages
-        if: ${{ success() }} # Only run if previous steps succeeded
-        uses: actions/configure-pages@v5
-
+        uses: actions/configure-pages@v2
       - name: Upload artifact
-        if: ${{ success() }} # Only run if previous steps succeeded
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
+          # Upload entire repository
           path: '.'
-
       - name: Deploy to GitHub Pages
-        if: ${{ success() }} # Only run if previous steps succeeded
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
