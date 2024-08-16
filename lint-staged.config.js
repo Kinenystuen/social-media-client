@@ -1,7 +1,6 @@
-// lint-staged.config.js
 module.exports = {
   'src/**/*.js': (files) => [
-    `eslint ${files.join(' ')} --cache --fix`,
+    `eslint "${files.join('" "')}" --cache --fix`,
     'prettier --write',
   ],
 };
